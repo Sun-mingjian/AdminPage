@@ -4,9 +4,9 @@ var React = require('react');
 var AuthorApi = require('../../api/authorApi');
 
 var AuthorList = React.createClass({
-    propTypes:{
-        authors: React.propTypes.array.isRequired
-    },
+    // propTypes: {
+    //     authors: React.propTypes.Array.isRequired
+    // },
 
     render: function(){   
         var createAuthorRow = function(author){
