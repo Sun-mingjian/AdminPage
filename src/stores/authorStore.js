@@ -7,7 +7,7 @@ var assign = require('object-assign');
 var _ = require('lodash');
 var CHANGE_EVENT = 'change';
 
-var _author = [];
+var _authors = [];
 
 var AuthorStore = assign({},EventEmitter.prototype,{
     addChangeListener: function(callBack){
@@ -20,18 +20,31 @@ var AuthorStore = assign({},EventEmitter.prototype,{
         this.emit(CHANGE_EVENT);
     },
     getAllAuthors:function(){
-        return _author;
+        return _authors;
     },
     getAuthorById:function(id){
-        return _.find(_authos,{id:id});
+        return _.find(_authors,{id:id});
     }
 });
 
 Dispatcher.register(function(action){
     switch(action.actionType){
-        case ActionType.CREATE_AUTHOR:
-            _author.push(action.author);
+        case ActionType:INITIALIZE:
+            _authors = action.initialData.authors;
             AuthorStore.emitChange();
+            break;
+        case ActionType.CREATE_AUTHOR:
+            _authors.push(action.author);
+            AuthorStore.emitChange();
+            break;
+        case ActionType.UPDATE_AUTHOR:
+            var existingAuthor = _.find(_authors,{id:action.author.id});
+            var existingAuthorIndex = _.indexOf(_authors, existingAuthor);
+            _authors.splice(existingAuthorIndex,1,action.author);
+            AuthorStore.emitChange();
+            break;
+        default:
+            //no operations
     }
 });
 

@@ -5,9 +5,9 @@ var AuthorApi = require('../../api/authorApi');
 var Link = require('react-router').Link;
 
 var AuthorList = React.createClass({
-    // propTypes: {
-    //     authors: React.propTypes.Array.isRequired
-    // },
+    propTypes: {
+        authors: React.propTypes.Array.isRequired
+    },
 
     render: function(){   
         var createAuthorRow = function(author){
